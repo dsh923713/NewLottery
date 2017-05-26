@@ -24,12 +24,16 @@ import com.zhy.adapter.recyclerview.base.ViewHolder;
 import com.zmq.lottery.R;
 import com.zmq.lottery.adapter.MsgChatAdapter;
 import com.zmq.lottery.base.BaseActivity;
+import com.zmq.lottery.base.RequestResult;
 import com.zmq.lottery.bean.MsgBean;
+import com.zmq.lottery.finals.RequestCode;
 import com.zmq.lottery.utils.DateUtil;
 import com.zmq.lottery.utils.GsonUtil;
+import com.zmq.lottery.utils.HttpUtils;
 import com.zmq.lottery.utils.LogUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
@@ -40,7 +44,7 @@ import butterknife.ButterKnife;
 import me.shaohui.bottomdialog.BaseBottomDialog;
 import me.shaohui.bottomdialog.BottomDialog;
 
-public class MsgChatActivity extends BaseActivity implements View.OnClickListener {
+public class MsgChatActivity extends BaseActivity implements View.OnClickListener,RequestResult {
     private static final String TAG = "DSH -> MsgChatActivity";
     @BindView(R.id.rv_msg)
     RecyclerView rv_msg; //消息列表
@@ -137,6 +141,9 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
     private String cname;//房间名称
     private int curlistid;
     private JPushToMyReceiver receiver; //接收JPush发送过来的广播
+    Map<String,String> map = new HashMap<>(); //参数集合
+    private HttpUtils httpUtils;
+
 
     public MsgChatActivity() {
         super(R.layout.activity_msg_chat);
@@ -448,10 +455,6 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
                 showShortToast("请输入抢庄金额！");
                 return;
             }
-//            if (!money.matches("[0-9]*")){
-//                showShortToast("请输入正确的格式");
-//                return;
-//            }
             MsgBean msgBean = new MsgBean(true, true, money, MsgBean.TYPE_SENT, R.drawable.xiaohei);
             data.add(msgBean);
             adapter.notifyItemInserted(data.size() - 1);//当有新消息，刷新recyclerview显示
@@ -473,6 +476,29 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+    private void bottomPour(){
+        map.put("m","zhu");
+        map.put("act","xz");
+        map.put("id_user","1");
+        map.put("username","test");
+        map.put("money","100");
+        httpUtils = new HttpUtils(this,this,"",false);
+        httpUtils.async(RequestCode.BUSINESS_BOTTOM_POUR,map);
+    }
+
+    @Override
+    public void onSuccess(String result, String requestCode) {
+
+    }
+
+    @Override
+    public void onFailure(String result, String requestCode) {
+
+    }
+
+    /**
+     * 接收JPush推送过来的信息广播
+     */
     class JPushToMyReceiver extends BroadcastReceiver{
 
         @Override
