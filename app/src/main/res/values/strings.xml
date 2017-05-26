@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">乐乐购</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="your_name">用户名:</string>
+    <string name="your_password">密　码:</string>
+    <string name="your_name_hint">请输入您的用户名</string>
+    <string name="your_password_hint">请输入您的密码</string>
+    <string name="login_up">登录</string>
+    <string name="register_user">注册新用户</string>
+
+    <!--String related to register-->
+    <string name="register_phone">手机号</string>
+    <string name="register_password">密码</string>
+    <string name="sure_register_password">确认密码</string>
+    <string name="register_captcha">验证码</string>
+    <string name="register_request_code">邀请码</string>
+    <string name="register_phone_hint">请输入手机号</string>
+    <string name="register_password_hint">请输入密码</string>
+    <string name="sure_register_password_hint">请再次输入密码</string>
+    <string name="register_captcha_hint">请输入验证码</string>
+    <string name="register_request_code_hint">推荐人手机号码(选填)</string>
+    <string name="get_register_captcha_code">获取验证码</string>
+    <string name="register">注册</string>
+
+    <!--String related to bottomBananer-->
+    <string name="home">大厅</string>
+    <string name="together_buy">合买</string>
+    <string name="recharge">充值</string>
+    <string name="myself">我的</string>
+
+    <!--String related to myself-->
+    <string name="business_record">交易记录</string>
+    <string name="my_news">我的消息</string>
+    <string name="contact_custom_service">联系客服</string>
+    <string name="my_extend">我的推广</string>
+    <string name="back_login">退出登录</string>
+
+    <string name="all">全部</string>
+    <string name="bottom_pour">下注</string>
+    <string name="bunko">输赢</string>
+    <string name="withdraw_cash">提现</string>
+    <string name="poundage">手续费</string>
+
+    <string name="lead_up">抢庄</string>
+    <string name="leading_up">抢庄中</string>
+    <string name="lead_up_time">现在是抢庄时间</string>
+    <string name="bottom_pour_time">现在是下注时间</string>
+    <string name="bottom_pour_record">投注记录</string>
+    <string name="select_bottom_pour_money">请选择下注金额</string>
+    <string name="send_lead_up_money">请输入抢庄金额</string>
+    <string name="hundred_money">100元</string>
+    <string name="two_hundred_money">200元</string>
+    <string name="three_hundred_money">300元</string>
+    <string name="five_hundred_money">500元</string>
+    <string name="bottom_pour_money">下注金额：￥</string>
+    <string name="sure_bottom_pour">确定下注</string>
+    <string name="play_name">赢家名称：</string>
+    <string name="lead_up_money">抢庄金额：￥</string>
+    <string name="send_msg">发送</string>
+
+    <string name="error_gif">x or y bound size should be at least %1$dpx and file size should be no more than %2$sM</string>
+</resources>

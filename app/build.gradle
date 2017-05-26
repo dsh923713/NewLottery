@@ -1,0 +1,71 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.zmq.lottery"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:support-vector-drawable:25.3.1'
+    //圆形控件
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    //GSON解析JSON
+    compile 'com.google.code.gson:gson:2.8.0'
+    //图片加载库
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    //广告轮播栏控件
+    compile 'com.bigkoo:convenientbanner:2.0.5'
+    //Android 6.0运行时权限管理
+    compile 'com.yanzhenjie:permission:1.0.7'
+    //butterknife注解
+    compile 'com.jakewharton:butterknife:8.5.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    //recyclerview
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    //底部导航栏
+    compile 'com.jpeng:JPTabBar:1.2.3'
+    //recyclerview万能适配器
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.15'
+    testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    //listView万能适配器
+    compile 'com.zhy:base-adapter:3.0.3'
+    //recyclerview万能适配器简便写法
+    compile 'com.zhy:base-rvadapter:3.0.3'
+    //okhttp3网络请求框架
+    compile 'com.zhousf.lib:okhttp3:2.7.2'
+    //极光推送
+    compile files('libs/jcore-android_v1.1.3.jar')
+    compile files('libs/jpush-android_v3.0.6.jar')
+
+    //底部弹窗
+    compile 'me.shaohui:bottomdialog:1.1.9'
+
+    //仿微信相册选择页
+    compile 'com.zhihu.android:matisse:0.4.3'
+}
