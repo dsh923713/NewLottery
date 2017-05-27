@@ -64,7 +64,6 @@ public class PersonFragment extends BaseFragment implements View.OnClickListener
     protected View initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
             savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_person, container, false);
-        ButterKnife.bind(this, view);
         return view;
     }
 

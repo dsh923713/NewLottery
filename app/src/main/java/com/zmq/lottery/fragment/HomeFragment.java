@@ -50,7 +50,6 @@ public class HomeFragment extends BaseFragment implements RequestResult {
     protected View initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
             savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
-        ButterKnife.bind(this, view);//绑定注解
         return view;
     }
 

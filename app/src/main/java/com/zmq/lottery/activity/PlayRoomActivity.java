@@ -68,7 +68,6 @@ public class PlayRoomActivity extends BaseActivity implements RequestResult {
     @Override
     protected void initView() {
         bundle = new Bundle();
-        ButterKnife.bind(this); //绑定注解
         setTitle(name);//设置标题
         toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));//改变toolbar颜色
         setStatusBar(ContextCompat.getColor(this, R.color.colorAccent));//改变状态栏颜色

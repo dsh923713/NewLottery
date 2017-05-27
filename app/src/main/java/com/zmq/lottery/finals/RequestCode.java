@@ -16,5 +16,6 @@ public class RequestCode {
     public static final String BUSINESS_DETAIL_WITHDRAW_CASH= "business_detail_withdraw_cash";//交易类型-提现
     public static final String BUSINESS_DETAIL_POUNDAGE= "business_detail_poundage";//交易类型-手续费
     public static final String BUSINESS_DETAIL_LEAD_UP= "business_detail_lead_up";//交易类型-抢庄
+    public static final String BUSINESS_LEAD_UP= "business_lead_up";//抢庄
     public static final String BUSINESS_BOTTOM_POUR= "business_bottom_pour";//下注
 }

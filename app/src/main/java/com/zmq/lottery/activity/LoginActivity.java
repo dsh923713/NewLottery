@@ -54,7 +54,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     protected void initView() {
         setTitle("登陆");
-        ButterKnife.bind(this);
         tv_login.setOnClickListener(this);
         tv_register.setOnClickListener(this);
         if (!TextUtils.isEmpty(SPUtil.getString("alias")) && !TextUtils.isEmpty(SPUtil.getString("pwd"))) {

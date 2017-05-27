@@ -81,7 +81,6 @@ public class BusinessRecordActivity extends BaseActivity implements SwipeRefresh
         map.put("code", "001");
         map.put("kind", kind);
         httpUtils.async(RequestCode.BUSINESS_DETAIL_ALL, map);
-        ButterKnife.bind(this); //绑定注解
         setTitle("交易记录"); //标题
         //返回按钮
         setLeftIcon(R.mipmap.ic_back, "返回", new View.OnClickListener() {

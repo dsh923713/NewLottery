@@ -18,6 +18,9 @@ import com.zmq.lottery.R;
 import com.zmq.lottery.utils.StatusBarCompat;
 import com.zmq.lottery.utils.ToastUtils;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 
 /**
  * Created by Administrator on 2017/5/15 0015.
@@ -28,6 +31,7 @@ public abstract class BaseFragment extends Fragment {
     protected Toolbar mToolbar;
     protected TextView tv_left, tv_title, tv_right;
     public View view;
+    private Unbinder unbinder;
 
 
     @Nullable
@@ -53,6 +57,7 @@ public abstract class BaseFragment extends Fragment {
         if (mToolbar != null) {
             activity.setSupportActionBar(mToolbar);
         }
+        unbinder = ButterKnife.bind(this, view); //绑定注解
         setStatusBar(Color.BLACK);
         initView(view);
         return view;
@@ -226,5 +231,14 @@ public abstract class BaseFragment extends Fragment {
             intent.putExtras(bundle);
         }
         startActivityForResult(intent, requestCode);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (unbinder != null){ //解绑注解
+            unbinder.unbind();
+            unbinder = null;
+        }
     }
 }

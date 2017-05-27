@@ -8,14 +8,7 @@ public class MsgChatBean {
     private String status;
     private int listid;
     private String msg;
-    private String balance;
-
-    public MsgChatBean(String status, int listid, String msg, String balance) {
-        this.status = status;
-        this.listid = listid;
-        this.msg = msg;
-        this.balance = balance;
-    }
+    private long balance;
 
     public String getStatus() {
         return status;
@@ -41,11 +34,11 @@ public class MsgChatBean {
         this.msg = msg;
     }
 
-    public String getBalance() {
+    public long getBalance() {
         return balance;
     }
 
-    public void setBalance(String balance) {
+    public void setBalance(long balance) {
         this.balance = balance;
     }
 }

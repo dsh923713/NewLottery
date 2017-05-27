@@ -66,7 +66,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 finish();
             }
         });
-        ButterKnife.bind(this);
         tvGetCaptchaCode.setOnClickListener(this);
         tv_register.setOnClickListener(this);
     }
