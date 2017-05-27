@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.JsonSyntaxException;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 import com.zmq.lottery.R;
@@ -316,7 +317,7 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
                 if (!content.contains("元")) {
                     content += "元";
                 }
-                money = content.replace("元","");//去掉单位
+                money = content.replace("元", "");//去掉单位
 //                bottomPour();
                 MsgBean msgBean = new MsgBean(true, false, content, MsgBean.TYPE_SENT, R.drawable.xiaohei);
                 data.add(msgBean);
@@ -441,7 +442,7 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
     /**
      * 下注
      */
-    private void bottomPour(String id_user,String username,String money) {
+    private void bottomPour(String id_user, String username, String money) {
         map.put("m", "zhu");
         map.put("act", "xz");
         map.put("id_user", "1");
@@ -453,7 +454,7 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onSuccess(String result, String requestCode) {
-        if (requestCode.equals(RequestCode.BUSINESS_BOTTOM_POUR)){
+        if (requestCode.equals(RequestCode.BUSINESS_BOTTOM_POUR)) {
             BottomPourBean bottomPourBean = GsonUtil.GsonToBean(result, BottomPourBean.class);
             showShortToast(bottomPourBean.getErrormsg());
         }
@@ -473,27 +474,31 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
         public void onReceive(Context context, Intent intent) {
             String msg = intent.getStringExtra("msg");
             LogUtils.d(msg);
-            MsgChatBean bean = GsonUtil.GsonToBean(msg, MsgChatBean.class);
-            showShortToast("执行....." + bean.getStatus());
-            if (bean.getStatus().equals("created")) { //抢庄
-                tv_select_time.setText(R.string.lead_up_time);//抢庄时间
-                tv_lead_time.setText(DateUtil.getCutDown(bean.getBalance()));
-                tv_lead_up.setVisibility(View.VISIBLE);
-                tv_bottom_pour.setVisibility(View.GONE);
-            } else if (bean.getStatus().equals("zhu")) { //下注
-                tv_select_time.setText(R.string.bottom_pour_time);//下注时间
-                tv_lead_time.setText(DateUtil.getCutDown(bean.getBalance()));
-                tv_lead_up.setVisibility(View.GONE);
-                tv_bottom_pour.setVisibility(View.VISIBLE);
-            } else if (bean.getStatus().equals("success")) { //结算成功
+            try {
+                MsgChatBean bean = GsonUtil.GsonToBean(msg, MsgChatBean.class);
+                showShortToast("执行....." + bean.getStatus());
+                if (bean.getStatus().equals("created")) { //抢庄
+                    tv_select_time.setText(R.string.lead_up_time);//抢庄时间
+                    tv_lead_time.setText(DateUtil.getCutDown(bean.getBalance()));
+                    tv_lead_up.setVisibility(View.VISIBLE);
+                    tv_bottom_pour.setVisibility(View.GONE);
+                } else if (bean.getStatus().equals("zhu")) { //下注
+                    tv_select_time.setText(R.string.bottom_pour_time);//下注时间
+                    tv_lead_time.setText(DateUtil.getCutDown(bean.getBalance()));
+                    tv_lead_up.setVisibility(View.GONE);
+                    tv_bottom_pour.setVisibility(View.VISIBLE);
+                } else if (bean.getStatus().equals("success")) { //结算成功
 
+                }
+            } catch (JsonSyntaxException jse) {
+                showShortToast("数据格式错误");
+            } catch (Exception e) {
+                showShortToast("你又调皮了");
             }
-//            Map<String, String> data = GsonUtil.GsonToMaps(msg);
-//            showShortToast("执行....."+data.get("test")+data);
         }
     }
 
-    private void addMsg(){
+    private void addMsg() {
 
     }
 
