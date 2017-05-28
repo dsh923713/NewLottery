@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class BusinessRecordActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener
         , View.OnClickListener, RequestResult {
@@ -181,6 +180,8 @@ public class BusinessRecordActivity extends BaseActivity implements SwipeRefresh
                 isChecked3 = false;
                 isChecked4 = false;
                 srl_refurbish.setRefreshing(true);
+                break;
+            default:
                 break;
         }
         isSelected();

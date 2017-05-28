@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by Administrator on 2017/5/16.
@@ -114,14 +113,14 @@ public class PlayRoomActivity extends BaseActivity implements RequestResult {
     private void showRoom() {
         Map<String, String> data = new HashMap<>();
         switch (name) {
-            case "北京28"://模拟
-                httpUtils = new HttpUtils(PlayRoomActivity.this, PlayRoomActivity.this, "正在加载...", true);
-                data.clear();
-                data.put("m","sys");
-                data.put("act", "getroom");
-                data.put("id_kind", "1");
-                httpUtils.async(RequestCode.GET_BEIJING_ROOM, data);
-                break;
+//            case "北京28"://模拟
+//                httpUtils = new HttpUtils(PlayRoomActivity.this, PlayRoomActivity.this, "正在加载...", true);
+//                data.clear();
+//                data.put("m","sys");
+//                data.put("act", "getroom");
+//                data.put("id_kind", "1");
+//                httpUtils.async(RequestCode.GET_BEIJING_ROOM, data);
+//                break;
             case "红包牛牛":
                 httpUtils = new HttpUtils(PlayRoomActivity.this, PlayRoomActivity.this, "正在加载...", true);
                 data.clear();
@@ -129,6 +128,8 @@ public class PlayRoomActivity extends BaseActivity implements RequestResult {
                 data.put("act", "getroom");
                 data.put("id_kind", "1");
                 httpUtils.async(RequestCode.GET_RED_ROOM, data);
+                break;
+            default:
                 break;
         }
     }
@@ -166,10 +167,10 @@ public class PlayRoomActivity extends BaseActivity implements RequestResult {
         if (requestCode.equals(RequestCode.GET_RED_ROOM)) {
             roomBeanList.addAll(GsonUtil.jsonToList(result, RoomBean.class));
             adapter.notifyDataSetChanged();
-        } else if (requestCode.equals(RequestCode.GET_BEIJING_ROOM)) {
-            for (int i = 0; i < 3; i++)
-                roomBeanList.addAll(GsonUtil.jsonToList(result, RoomBean.class));
-            adapter.notifyDataSetChanged();
+//        } else if (requestCode.equals(RequestCode.GET_BEIJING_ROOM)) {
+//            for (int i = 0; i < 3; i++)
+//                roomBeanList.addAll(GsonUtil.jsonToList(result, RoomBean.class));
+//            adapter.notifyDataSetChanged();
         }
     }
 

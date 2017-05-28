@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by Administrator on 2017/5/15 0015.
@@ -111,6 +110,8 @@ public class HomeFragment extends BaseFragment implements RequestResult {
                         break;
                     case 8: //更多玩法
                         break;
+                    default:
+                        break;
 
                 }
             }
@@ -126,23 +127,23 @@ public class HomeFragment extends BaseFragment implements RequestResult {
      * 添加网格数据
      */
     private void initHomeModel() {
-        HomeBean beijing = new HomeBean(R.mipmap.ic_launcher, "北京28");
+        HomeBean beijing = new HomeBean(R.mipmap.ic_beijing, "北京28");
         homeModels.add(beijing);
-        HomeBean canada = new HomeBean(R.mipmap.ic_launcher, "加拿大28");
+        HomeBean canada = new HomeBean(R.mipmap.ic_canada, "加拿大28");
         homeModels.add(canada);
-        HomeBean taurus = new HomeBean(R.mipmap.ic_launcher, "红包牛牛");
+        HomeBean taurus = new HomeBean(R.mipmap.ic_red_ox, "红包牛牛");
         homeModels.add(taurus);
-        HomeBean frequent_colors = new HomeBean(R.mipmap.ic_launcher, "重庆时时彩");
+        HomeBean frequent_colors = new HomeBean(R.mipmap.ic_shishicai, "重庆时时彩");
         homeModels.add(frequent_colors);
-        HomeBean playkilling = new HomeBean(R.mipmap.ic_launcher, "PK拾");
+        HomeBean playkilling = new HomeBean(R.mipmap.ic_pk, "PK拾");
         homeModels.add(playkilling);
-        HomeBean chromosphere = new HomeBean(R.mipmap.ic_launcher, "双色球");
+        HomeBean chromosphere = new HomeBean(R.mipmap.ic_shuang, "双色球");
         homeModels.add(chromosphere);
-        HomeBean lottery_ticket = new HomeBean(R.mipmap.ic_launcher, "超级大乐透");
+        HomeBean lottery_ticket = new HomeBean(R.mipmap.ic_le, "超级大乐透");
         homeModels.add(lottery_ticket);
-        HomeBean elevenAndfive = new HomeBean(R.mipmap.ic_launcher, "11选5");
+        HomeBean elevenAndfive = new HomeBean(R.mipmap.ic_11_5, "11选5");
         homeModels.add(elevenAndfive);
-        HomeBean morePlay = new HomeBean(R.mipmap.ic_launcher, "更多玩法");
+        HomeBean morePlay = new HomeBean(R.mipmap.ic_more, "更多玩法");
         homeModels.add(morePlay);
     }
 

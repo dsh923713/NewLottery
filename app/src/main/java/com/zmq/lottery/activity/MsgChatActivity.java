@@ -104,7 +104,7 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
 
     private TextView tv_lead_up_money_sure; //抢庄确认
     private EditText et_lead_up_money; //抢庄金额
-    private String money;
+    private String money = "";
     private BaseBottomDialog dialog; //底部弹窗--抢庄金额输入
     private int id; //房间id
     private String cname;//房间名称
@@ -346,6 +346,8 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
                         setDrawableRight(R.mipmap.ic_up);
                     }
                 }
+                break;
+            default:
                 break;
         }
         checkedHowMoney();
