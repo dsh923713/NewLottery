@@ -101,6 +101,8 @@ public class PlayRoomActivity extends BaseActivity implements RequestResult {
                         bundle.putInt("id", roomBeanList.get(position).getId());
                         bundle.putString("cname", roomBeanList.get(position).getCname());
                         break;
+                    default:
+                        break;
                 }
                 startActivity(MsgChatActivity.class, bundle);
             }

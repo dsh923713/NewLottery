@@ -23,7 +23,6 @@ import java.util.Map;
 import java.util.Set;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 
@@ -75,6 +74,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 break;
             case R.id.tv_register:
                 startActivity(RegisterActivity.class);
+                break;
+            default:
                 break;
         }
     }

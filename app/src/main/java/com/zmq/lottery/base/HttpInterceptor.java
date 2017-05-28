@@ -58,6 +58,8 @@ public class HttpInterceptor {
                 case HttpInfo.ConnectionInterruption:
                     info.setRetDetail("连接中断");
                     break;
+                default:
+                    break;
             }
             return info;
         }

@@ -22,7 +22,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener, RequestResult {
     @BindView(R.id.et_register_phone)
@@ -49,6 +48,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private TimerTask task;//计时器
     private long time = -1; //倒计时
     Map<String, String> data = new HashMap<>();//链接参数集合
+
     public RegisterActivity() {
         super(R.layout.activity_register);
     }
@@ -103,7 +103,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 }
                 //获取验证码
                 httpUtils = new HttpUtils(RegisterActivity.this, RegisterActivity.this, "正在获取...", true);
-                data.put("m","sys");
+                data.put("m", "sys");
                 data.put("act", "sendvalidcode");
                 data.put("tell", phoneNum);
                 httpUtils.async(RequestCode.SEND_VALID_CODE, data);
@@ -138,7 +138,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     return;
                 }
                 httpUtils = new HttpUtils(RegisterActivity.this, RegisterActivity.this, "正在注册...", true);
-                data.put("m","sys");
+                data.put("m", "sys");
                 data.put("act", "validpost");
                 data.put("tell", phoneNum);//手机号码
                 data.put("validcode", captchaCode); //验证码
@@ -146,13 +146,15 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 data.put("recommended", requestCode);  //邀请码
                 httpUtils.async(RequestCode.REGISTER_ACCOUNT, data);
                 break;
+            default:
+                break;
         }
     }
 
     @Override
     public void onSuccess(String result, String requestCode) {
         if (requestCode.equals(RequestCode.SEND_VALID_CODE)) {
-            if (result.equals("fail")){
+            if (result.equals("fail")) {
                 showShortToast("手机已经注册过");
                 return;
             }
@@ -201,5 +203,15 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             }
         };
         timer.schedule(task, 1000, 1000);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (timer != null) {
+            timer.cancel();
+            task.cancel();
+            timer = null;
+        }
     }
 }

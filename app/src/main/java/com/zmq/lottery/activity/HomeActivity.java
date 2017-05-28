@@ -62,6 +62,8 @@ public class HomeActivity extends BaseActivity {
                         toolbar.setBackgroundColor(ContextCompat.getColor(HomeActivity.this, R.color.colorAccent));
                         replaceFragment(resId, new PersonFragment());
                         break;
+                    default:
+                        break;
                 }
             }
         });

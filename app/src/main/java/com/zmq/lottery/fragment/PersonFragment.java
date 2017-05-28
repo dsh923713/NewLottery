@@ -32,7 +32,6 @@ import com.zmq.lottery.utils.SPUtil;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -104,6 +103,8 @@ public class PersonFragment extends BaseFragment implements View.OnClickListener
                 break;
             case R.id.civ_head:  //头像
                 AndPermission.with(this).requestCode(WRITE_EXTERNAL_STORAGE).permission(Manifest.permission.WRITE_EXTERNAL_STORAGE).callback(this).start();
+                break;
+            default:
                 break;
         }
     }

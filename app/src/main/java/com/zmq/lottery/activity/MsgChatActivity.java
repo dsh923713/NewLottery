@@ -495,7 +495,7 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
             } catch (JsonSyntaxException jse) {
                 showShortToast("数据格式错误");
             } catch (Exception e) {
-                showShortToast("你又调皮了");
+                System.out.print("你又调皮了");
             }
         }
     }
