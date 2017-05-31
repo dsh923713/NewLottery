@@ -30,9 +30,9 @@ public class JPushReceiver extends BroadcastReceiver {
         }
         if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) { //接收普通消息
             message = (String) bundle.get(JPushInterface.EXTRA_ALERT);
-        }
-        if (!TextUtils.isEmpty(bundle.getString(JPushInterface.EXTRA_EXTRA))){
-            message = bundle.getString(JPushInterface.EXTRA_EXTRA);
+//            if (!TextUtils.isEmpty(bundle.getString(JPushInterface.EXTRA_EXTRA))){ //接收自定义字段
+//                message = bundle.getString(JPushInterface.EXTRA_EXTRA);
+//            }
         }
         if (!TextUtils.isEmpty(message)){
             ToastUtils.showLongToast(context, message);

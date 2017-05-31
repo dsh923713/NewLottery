@@ -63,5 +63,13 @@
     <string name="lead_up_money">抢庄金额：￥</string>
     <string name="send_msg">发送</string>
 
+
+    <string name="withdraw_cash_bank">银行名称：</string>
+    <string name="bank_account">卡号：</string>
+    <string name="bank_binding_person">开户人姓名：</string>
+    <string name="hint_bank_account">请输入您的银行卡号</string>
+    <string name="hint_bank_binding_person">请输入您的开户人姓名</string>
+    <string name="hint_withdraw_cash_bank">请输入您要提现的银行名称</string>
+
     <string name="error_gif">x or y bound size should be at least %1$dpx and file size should be no more than %2$sM</string>
 </resources>

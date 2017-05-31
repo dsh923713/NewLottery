@@ -48,6 +48,14 @@
         android:gravity="center|left"
         android:padding="15dp"
         android:text="@string/business_record" />
+    <TextView
+        android:id="@+id/tv_withdraw_cash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@mipmap/ic_right"
+        android:gravity="center|left"
+        android:padding="15dp"
+        android:text="@string/withdraw_cash" />
 
     <View
         android:layout_width="match_parent"

@@ -32,6 +32,8 @@ import com.zmq.lottery.utils.SPUtil;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -50,6 +52,8 @@ public class PersonFragment extends BaseFragment implements View.OnClickListener
     TextView tv_login_style;  //登陆方式
     @BindView(R.id.tv_business_record)
     TextView tv_business_record; //交易记录
+    @BindView(R.id.tv_withdraw_cash)
+    TextView tv_withdraw_cash; //提现
     @BindView(R.id.tv_my_news)
     TextView tv_my_news; //我的消息
     @BindView(R.id.tv_contact_custom_service)
@@ -58,6 +62,7 @@ public class PersonFragment extends BaseFragment implements View.OnClickListener
     TextView tv_my_extend;  //我的推广
     @BindView(R.id.tv_back_login)
     TextView tv_back_login; //退出登陆
+    Unbinder unbinder;
 
     @Override
     protected View initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
@@ -91,6 +96,9 @@ public class PersonFragment extends BaseFragment implements View.OnClickListener
         switch (v.getId()) {
             case R.id.tv_business_record: //交易记录
                 startActivity(BusinessRecordActivity.class);
+                break;
+            case R.id.tv_withdraw_cash:
+
                 break;
             case R.id.tv_my_news:  //我的消息
                 break;
@@ -142,5 +150,19 @@ public class PersonFragment extends BaseFragment implements View.OnClickListener
             SPUtil.saveString("image" + SPUtil.getString("alias"), mSelected.get(0).toString());
             Glide.with(this).load(mSelected.get(0)).into(civ_head);
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }
