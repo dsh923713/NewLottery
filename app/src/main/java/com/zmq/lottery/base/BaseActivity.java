@@ -63,9 +63,9 @@ public abstract class BaseActivity extends AppCompatActivity {
      *
      * @param extras
      */
-    protected abstract void getBundleExtras(Bundle extras);
+    protected void getBundleExtras(Bundle extras){};
 
-    protected abstract void initContentView(Bundle bundle);//恢复数据
+    protected void initContentView(Bundle bundle){};//恢复数据
 
     protected abstract void initView();//初始化控件
 

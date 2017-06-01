@@ -82,7 +82,7 @@ public abstract class BaseFragment extends Fragment {
      *
      * @param bundle
      */
-    protected abstract void getBundleExtras(Bundle bundle);
+    protected void getBundleExtras(Bundle bundle){};
     /**
      * 改变状态栏颜色
      * @param colorId

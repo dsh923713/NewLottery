@@ -27,8 +27,4 @@ public class TogetherBuyFragment extends BaseFragment {
         setStatusBar(ContextCompat.getColor(activity, R.color.colorAccent));
     }
 
-    @Override
-    protected void getBundleExtras(Bundle bundle) {
-
-    }
 }

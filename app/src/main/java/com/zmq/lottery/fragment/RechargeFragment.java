@@ -26,8 +26,4 @@ public class RechargeFragment extends BaseFragment {
 
     }
 
-    @Override
-    protected void getBundleExtras(Bundle bundle) {
-
-    }
 }

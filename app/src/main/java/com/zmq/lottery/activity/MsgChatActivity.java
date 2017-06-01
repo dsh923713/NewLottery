@@ -127,10 +127,6 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
-    @Override
-    protected void initContentView(Bundle bundle) {
-
-    }
 
     @Override
     protected void initView() {

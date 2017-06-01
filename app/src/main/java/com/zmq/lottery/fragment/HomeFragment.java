@@ -118,10 +118,6 @@ public class HomeFragment extends BaseFragment implements RequestResult {
         });
     }
 
-    @Override
-    protected void getBundleExtras(Bundle bundle) {
-
-    }
 
     /**
      * 添加网格数据

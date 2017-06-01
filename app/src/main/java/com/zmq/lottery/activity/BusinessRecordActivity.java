@@ -1,6 +1,5 @@
 package com.zmq.lottery.activity;
 
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
@@ -60,15 +59,6 @@ public class BusinessRecordActivity extends BaseActivity implements SwipeRefresh
         super(R.layout.activity_business_record);
     }
 
-    @Override
-    protected void getBundleExtras(Bundle extras) {
-
-    }
-
-    @Override
-    protected void initContentView(Bundle bundle) {
-
-    }
 
     @Override
     protected void initView() {

@@ -1,6 +1,5 @@
 package com.zmq.lottery.activity;
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
@@ -45,10 +44,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         super(R.layout.activity_login);
     }
 
-    @Override
-    protected void initContentView(Bundle bundle) {
-
-    }
 
     @Override
     protected void initView() {
@@ -59,11 +54,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             et_name.setText(SPUtil.getString("alias"));
             et_password.setText(SPUtil.getString("pwd"));
         }
-    }
-
-    @Override
-    protected void getBundleExtras(Bundle extras) {
-
     }
 
     @Override

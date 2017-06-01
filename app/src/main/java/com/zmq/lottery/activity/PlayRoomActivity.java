@@ -60,11 +60,6 @@ public class PlayRoomActivity extends BaseActivity implements RequestResult {
     }
 
     @Override
-    protected void initContentView(Bundle bundle) {
-
-    }
-
-    @Override
     protected void initView() {
         bundle = new Bundle();
         setTitle(name);//设置标题

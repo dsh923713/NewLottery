@@ -65,11 +65,15 @@
 
 
     <string name="withdraw_cash_bank">银行名称：</string>
-    <string name="bank_account">卡号：</string>
-    <string name="bank_binding_person">开户人姓名：</string>
+    <string name="bank_account">卡　号：</string>
+    <string name="bank_binding_person">持卡人：</string>
     <string name="hint_bank_account">请输入您的银行卡号</string>
-    <string name="hint_bank_binding_person">请输入您的开户人姓名</string>
+    <string name="hint_bank_binding_person">请输入持卡人姓名</string>
     <string name="hint_withdraw_cash_bank">请输入您要提现的银行名称</string>
-
+    <string name="withdraw_cash_num">提现金额(免收手续费)</string>
+    <string name="withdraw_cash_time">两小时内到账，确认提现</string>
+    <string name="all_withdraw_cash">全部提现</string>
+    <string name="usable_cash">可用余额 2025.00元</string>
+    <string name="cash_unit">￥</string>
     <string name="error_gif">x or y bound size should be at least %1$dpx and file size should be no more than %2$sM</string>
 </resources>

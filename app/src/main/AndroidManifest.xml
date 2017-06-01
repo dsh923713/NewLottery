@@ -59,29 +59,34 @@
         <!--注册-->
         <activity
             android:name="com.zmq.lottery.activity.RegisterActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden" />
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
         <!--首页-->
         <activity
             android:name="com.zmq.lottery.activity.HomeActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden" />
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
         <!--游戏房间-->
         <activity
             android:name="com.zmq.lottery.activity.PlayRoomActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden" />
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
         <!--交易记录-->
         <activity
             android:name="com.zmq.lottery.activity.BusinessRecordActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden" />
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
         <!--聊天-->
         <activity
             android:name="com.zmq.lottery.activity.MsgChatActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden" />
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
 
+        <!--提现-->
+        <activity
+            android:name=".activity.WithdrawCashActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
         <service

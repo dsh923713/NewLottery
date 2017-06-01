@@ -1,6 +1,5 @@
 package com.zmq.lottery.activity;
 
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 
 import com.jpeng.jptabbar.JPTabBar;
@@ -22,10 +21,6 @@ public class HomeActivity extends BaseActivity {
         super(R.layout.activity_home);
     }
 
-    @Override
-    protected void initContentView(Bundle bundle) {
-
-    }
 
     @Override
     protected void initView() {
@@ -69,10 +64,6 @@ public class HomeActivity extends BaseActivity {
         });
     }
 
-    @Override
-    protected void getBundleExtras(Bundle extras) {
-
-    }
 
 //    /**
 //     * 切换fragment页面

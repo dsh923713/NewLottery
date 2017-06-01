@@ -1,6 +1,5 @@
 package com.zmq.lottery.activity;
 
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
@@ -53,10 +52,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         super(R.layout.activity_register);
     }
 
-    @Override
-    protected void initContentView(Bundle bundle) {
-
-    }
 
     @Override
     protected void initView() {
@@ -79,11 +74,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         pwdSure = et_sure_register_pw.getText().toString().trim();
         captchaCode = et_register_captcha_code.getText().toString().trim();
         requestCode = et_register_request_code.getText().toString().trim();
-    }
-
-    @Override
-    protected void getBundleExtras(Bundle extras) {
-
     }
 
     @Override
