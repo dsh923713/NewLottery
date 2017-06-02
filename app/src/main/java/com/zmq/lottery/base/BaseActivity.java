@@ -92,13 +92,15 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public void setLeftIcon(int resId, String msg, View.OnClickListener listener) {
         tv_left.setVisibility(View.VISIBLE);
-        Drawable drawable = ContextCompat.getDrawable(this, resId);
         if (msg != null) {
             tv_left.setText(msg);
         }
-        // 这一步必须要做,否则不会显示.
-        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-        tv_left.setCompoundDrawables(drawable, null, null, null);
+        if (resId != 0){
+            Drawable drawable = ContextCompat.getDrawable(this, resId);
+            // 这一步必须要做,否则不会显示.
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            tv_left.setCompoundDrawables(drawable, null, null, null);
+        }
         if (listener != null) {
             tv_left.setOnClickListener(listener);
         }

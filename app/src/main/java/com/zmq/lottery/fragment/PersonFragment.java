@@ -6,12 +6,16 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +32,7 @@ import com.zhihu.matisse.filter.Filter;
 import com.zmq.lottery.R;
 import com.zmq.lottery.activity.BusinessRecordActivity;
 import com.zmq.lottery.activity.LoginActivity;
+import com.zmq.lottery.activity.RedPacketActivity;
 import com.zmq.lottery.activity.WithdrawCashActivity;
 import com.zmq.lottery.base.BaseFragment;
 import com.zmq.lottery.utils.DialogUtil;
@@ -88,6 +93,7 @@ public class PersonFragment extends BaseFragment implements View.OnClickListener
         }
         setStatusBar(ContextCompat.getColor(activity, R.color.colorAccent));
         findDialogId();
+
     }
 
     /**
@@ -118,9 +124,9 @@ public class PersonFragment extends BaseFragment implements View.OnClickListener
                 startActivity(WithdrawCashActivity.class);
                 break;
             case R.id.tv_my_news:  //我的消息
-                if (dialog != null){
+                if (dialog != null) {
                     dialog.show();
-                }else {
+                } else {
                     dialog = DialogUtil.getDialog1(activity, dia_view);
                 }
                 break;
@@ -139,14 +145,40 @@ public class PersonFragment extends BaseFragment implements View.OnClickListener
         }
     }
 
+    Handler handler = new Handler();
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(RedPacketActivity.class);
+                    if (dialog != null){
+                        dialog.dismiss();
+                        dialog.cancel();
+                    }
+                    btnOpen.clearAnimation();
+                    if (handler != null){
+                        handler.removeCallbacksAndMessages(null);
+                    }
+                }
+            });
+        }
+    };
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btn_close:
                     dialog.dismiss();
+                    btnOpen.clearAnimation();
                     break;
                 case R.id.btn_open:
+                    Animation operatingAnim = AnimationUtils.loadAnimation(activity, R.anim.red_packet_rotate);
+                    LinearInterpolator lin = new LinearInterpolator();
+                    operatingAnim.setInterpolator(lin);
+                    btnOpen.startAnimation(operatingAnim);
+                    handler.postDelayed(runnable,2000);
                     break;
                 default:
                     break;

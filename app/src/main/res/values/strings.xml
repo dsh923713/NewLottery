@@ -75,5 +75,8 @@
     <string name="all_withdraw_cash">全部提现</string>
     <string name="usable_cash">可用余额 2025.00元</string>
     <string name="cash_unit">￥</string>
+    <string name="cash_packet">已存入零钱，可直接转账</string>
+    <string name="best_of_luck">手气最佳</string>
+
     <string name="error_gif">x or y bound size should be at least %1$dpx and file size should be no more than %2$sM</string>
 </resources>
