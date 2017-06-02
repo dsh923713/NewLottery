@@ -41,13 +41,13 @@ public class HttpInterceptor {
                     info.setRetDetail("网络中断");
                     break;
                 case HttpInfo.CheckURL:
-                    info.setRetDetail("网络地址错误["+info.getNetCode()+"]");
+                    info.setRetDetail("网络地址错误");
                     break;
                 case HttpInfo.ProtocolException:
-                    info.setRetDetail("协议类型错误["+info.getNetCode()+"]");
+                    info.setRetDetail("协议类型错误");
                     break;
                 case HttpInfo.CheckNet:
-                    info.setRetDetail("请检查网络连接是否正常["+info.getNetCode()+"]");
+                    info.setRetDetail("请检查网络连接是否正常");
                     break;
                 case HttpInfo.ConnectionTimeOut:
                     info.setRetDetail("连接超时");

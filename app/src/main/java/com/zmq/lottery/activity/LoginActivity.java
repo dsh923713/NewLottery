@@ -159,6 +159,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onFailure(String result, String requestCode) {
-
+        showShortToast(result);
     }
 }

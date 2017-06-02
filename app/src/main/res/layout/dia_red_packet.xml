@@ -9,8 +9,8 @@
     <!-- 关闭按钮 -->
     <Button
         android:id="@+id/btn_close"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:layout_gravity="left"
         android:layout_margin="10dp"
         android:background="@mipmap/ic_close" />
