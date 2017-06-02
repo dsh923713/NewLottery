@@ -91,7 +91,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             return;
         }
         data.clear();
-        data.put("m","sys");
+        data.put("m", "sys");
         data.put("act", "login");
         data.put("code", alias);
         data.put("password", pwd);
@@ -150,8 +150,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void onSuccess(String result, String requestCode) {
         LoginBean bean = GsonUtil.GsonToBean(result, LoginBean.class);
         if (bean.getCode() == 0) {
-            SPUtil.saveString("alias", alias);
+            SPUtil.saveString("alias", bean.getUsername());
             SPUtil.saveString("pwd", pwd);
+            SPUtil.saveInt("id_user", bean.getId_user());
             startActivityAndFinish(HomeActivity.class);
         }
         showShortToast(bean.getMessage());

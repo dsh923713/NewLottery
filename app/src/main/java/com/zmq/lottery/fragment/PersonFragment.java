@@ -88,8 +88,8 @@ public class PersonFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     protected void initView(View view) {
-        if (!TextUtils.isEmpty(SPUtil.getString("image" + SPUtil.getString("alias")))) {
-            Glide.with(this).load(SPUtil.getString("image" + SPUtil.getString("alias"))).into(civ_head);
+        if (!TextUtils.isEmpty(SPUtil.getString("image" + SPUtil.getInt("id_user")))) { //从缓存中获取
+            Glide.with(this).load(SPUtil.getString("image" + SPUtil.getInt("id_user"))).into(civ_head);
         }
         setStatusBar(ContextCompat.getColor(activity, R.color.colorAccent));
         findDialogId();
@@ -153,12 +153,12 @@ public class PersonFragment extends BaseFragment implements View.OnClickListener
                 @Override
                 public void run() {
                     startActivity(RedPacketActivity.class);
-                    if (dialog != null){
+                    if (dialog != null) {
                         dialog.dismiss();
                         dialog.cancel();
                     }
                     btnOpen.clearAnimation();
-                    if (handler != null){
+                    if (handler != null) {
                         handler.removeCallbacksAndMessages(null);
                     }
                 }
@@ -178,7 +178,7 @@ public class PersonFragment extends BaseFragment implements View.OnClickListener
                     LinearInterpolator lin = new LinearInterpolator();
                     operatingAnim.setInterpolator(lin);
                     btnOpen.startAnimation(operatingAnim);
-                    handler.postDelayed(runnable,2000);
+                    handler.postDelayed(runnable, 2000);
                     break;
                 default:
                     break;
@@ -216,7 +216,7 @@ public class PersonFragment extends BaseFragment implements View.OnClickListener
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
             mSelected = Matisse.obtainResult(data);
-            SPUtil.saveString("image" + SPUtil.getString("alias"), mSelected.get(0).toString());
+            SPUtil.saveString("image" + SPUtil.getInt("id_user"), mSelected.get(0).toString());
             Glide.with(this).load(mSelected.get(0)).into(civ_head);
         }
     }
