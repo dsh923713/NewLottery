@@ -1,27 +1,20 @@
 package com.zmq.lottery.fragment;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.makeramen.roundedimageview.RoundedImageView;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionNo;
 import com.yanzhenjie.permission.PermissionYes;
@@ -32,10 +25,8 @@ import com.zhihu.matisse.filter.Filter;
 import com.zmq.lottery.R;
 import com.zmq.lottery.activity.BusinessRecordActivity;
 import com.zmq.lottery.activity.LoginActivity;
-import com.zmq.lottery.activity.RedPacketActivity;
 import com.zmq.lottery.activity.WithdrawCashActivity;
 import com.zmq.lottery.base.BaseFragment;
-import com.zmq.lottery.utils.DialogUtil;
 import com.zmq.lottery.utils.GifSizeFilter;
 import com.zmq.lottery.utils.SPUtil;
 
@@ -71,18 +62,12 @@ public class PersonFragment extends BaseFragment implements View.OnClickListener
     TextView tv_my_extend;  //我的推广
     @BindView(R.id.tv_back_login)
     TextView tv_back_login; //退出登陆
-    private Button btnClose; //关闭弹窗
-    private RoundedImageView ivHead; //头像
-    private TextView diaTvName;//昵称
-    private Button btnOpen; //打开红包
-    private View dia_view; //红包弹窗视图
-    private Dialog dialog; //红包弹窗
 
     @Override
     protected View initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
             savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_person, container, false);
-        dia_view = View.inflate(activity, R.layout.dia_red_packet, null);
+
         return view;
     }
 
@@ -92,21 +77,9 @@ public class PersonFragment extends BaseFragment implements View.OnClickListener
             Glide.with(this).load(SPUtil.getString("image" + SPUtil.getInt("id_user"))).into(civ_head);
         }
         setStatusBar(ContextCompat.getColor(activity, R.color.colorAccent));
-        findDialogId();
-
     }
 
-    /**
-     * 初始化弹窗控件
-     */
-    private void findDialogId() {
-        ivHead = (RoundedImageView) dia_view.findViewById(R.id.iv_head);
-        diaTvName = (TextView) dia_view.findViewById(R.id.dia_tv_name);
-        btnClose = (Button) dia_view.findViewById(R.id.btn_close);
-        btnOpen = (Button) dia_view.findViewById(R.id.btn_open);
-        btnClose.setOnClickListener(clickListener);
-        btnOpen.setOnClickListener(clickListener);
-    }
+
 
     /**
      * 注册点击事件
@@ -124,11 +97,6 @@ public class PersonFragment extends BaseFragment implements View.OnClickListener
                 startActivity(WithdrawCashActivity.class);
                 break;
             case R.id.tv_my_news:  //我的消息
-                if (dialog != null) {
-                    dialog.show();
-                } else {
-                    dialog = DialogUtil.getDialog1(activity, dia_view);
-                }
                 break;
             case R.id.tv_contact_custom_service:  //联系客服
                 break;
@@ -144,47 +112,6 @@ public class PersonFragment extends BaseFragment implements View.OnClickListener
                 break;
         }
     }
-
-    Handler handler = new Handler();
-    Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    startActivity(RedPacketActivity.class);
-                    if (dialog != null) {
-                        dialog.dismiss();
-                        dialog.cancel();
-                    }
-                    btnOpen.clearAnimation();
-                    if (handler != null) {
-                        handler.removeCallbacksAndMessages(null);
-                    }
-                }
-            });
-        }
-    };
-    View.OnClickListener clickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btn_close:
-                    dialog.dismiss();
-                    btnOpen.clearAnimation();
-                    break;
-                case R.id.btn_open:
-                    Animation operatingAnim = AnimationUtils.loadAnimation(activity, R.anim.red_packet_rotate);
-                    LinearInterpolator lin = new LinearInterpolator();
-                    operatingAnim.setInterpolator(lin);
-                    btnOpen.startAnimation(operatingAnim);
-                    handler.postDelayed(runnable, 2000);
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
 
     // 成功回调的方法，用注解即可，这里的300就是请求时的requestCode。
     @PermissionYes(WRITE_EXTERNAL_STORAGE)

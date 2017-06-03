@@ -1,11 +1,13 @@
 package com.zmq.lottery.activity;
 
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,12 +16,18 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.JsonSyntaxException;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 import com.zmq.lottery.R;
@@ -31,6 +39,7 @@ import com.zmq.lottery.bean.MsgBean;
 import com.zmq.lottery.bean.MsgChatBean;
 import com.zmq.lottery.finals.RequestCode;
 import com.zmq.lottery.utils.DateUtil;
+import com.zmq.lottery.utils.DialogUtil;
 import com.zmq.lottery.utils.GsonUtil;
 import com.zmq.lottery.utils.HttpUtils;
 import com.zmq.lottery.utils.LocalBroadManager;
@@ -89,6 +98,12 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
     EditText et_bottom_pour_money; //自定义金额
     @BindView(R.id.tv_sure_bottom_pour)
     TextView tv_sure_bottom_pour; //确认下注
+    private Button btnClose; //关闭弹窗
+    private RoundedImageView ivHead; //头像
+    private TextView diaTvName;//昵称
+    private Button btnOpen; //打开红包
+    private View dia_view; //红包弹窗视图
+    private Dialog rpDialog; //红包弹窗
 
     List<MsgBean> data = new ArrayList<>(); //模拟即时消息数据
     private MsgChatAdapter adapter;
@@ -151,6 +166,20 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
         rv_msg.setLayoutManager(msgLayout);//显示样式
         adapter = new MsgChatAdapter(data); //声明适配器
         rv_msg.setAdapter(adapter);
+        dia_view = View.inflate(this, R.layout.dia_red_packet, null);
+        findDialogId();
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                MsgBean msgBean = (MsgBean) adapter.getData().get(position);
+                showShortToast(msgBean.getContent()+"---"+position);
+                if (rpDialog != null) {
+                    rpDialog.show();
+                } else {
+                    rpDialog = DialogUtil.getDialog1(MsgChatActivity.this, dia_view);
+                }
+            }
+        });
 
         addRecordList();
         LinearLayoutManager recordLayout = new LinearLayoutManager(this);
@@ -166,6 +195,72 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
             isShow = true;
             setDrawableRight(R.mipmap.ic_up);
         }
+        setOnClicked();
+        isSend();
+    }
+
+    /**
+     * 模拟红包打开缩放效果
+     */
+    Handler handler = new Handler();
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(RedPacketActivity.class);
+                    if (rpDialog != null) {
+                        rpDialog.dismiss();
+                        rpDialog.cancel();
+                    }
+                    btnOpen.clearAnimation();
+                    if (handler != null) {
+                        handler.removeCallbacksAndMessages(null);
+                    }
+                }
+            });
+        }
+    };
+    /**
+     * 红包弹窗的点击事件
+     */
+    View.OnClickListener rpClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn_close:
+                    rpDialog.dismiss();
+                    btnOpen.clearAnimation();
+                    break;
+                case R.id.btn_open:
+                    Animation operatingAnim = AnimationUtils.loadAnimation(MsgChatActivity.this, R.anim.red_packet_rotate);
+                    LinearInterpolator lin = new LinearInterpolator();
+                    operatingAnim.setInterpolator(lin);
+                    btnOpen.startAnimation(operatingAnim);
+                    handler.postDelayed(runnable, 2000);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+    /**
+     * 初始化弹窗控件
+     */
+    private void findDialogId() {
+        ivHead = (RoundedImageView) dia_view.findViewById(R.id.iv_head);
+        diaTvName = (TextView) dia_view.findViewById(R.id.dia_tv_name);
+        btnClose = (Button) dia_view.findViewById(R.id.btn_close);
+        btnOpen = (Button) dia_view.findViewById(R.id.btn_open);
+        btnClose.setOnClickListener(rpClicked);
+        btnOpen.setOnClickListener(rpClicked);
+    }
+    /**
+     * 注册点击事件
+     */
+    private void setOnClicked() {
         tv_bottom_pour.setOnClickListener(this);
         tv_lead_up.setOnClickListener(this);
         tv_bottom_pour_record.setOnClickListener(this);
@@ -185,7 +280,6 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
                 return false;
             }
         });
-        isSend();
     }
 
     /**
@@ -231,11 +325,11 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
     private void addData() {
         MsgBean msgBean1 = new MsgBean(false, false, "测试数据试试看怎么样？", MsgBean.TYPE_RECEIVED, R.drawable.renma);
         data.add(msgBean1);
-        MsgBean msgBean2 = new MsgBean(true, false, "200元", MsgBean.TYPE_RECEIVED, R.drawable.renma);
+        MsgBean msgBean2 = new MsgBean(true, false, "200", MsgBean.TYPE_RECEIVED, R.drawable.renma);
         data.add(msgBean2);
         MsgBean msgBean3 = new MsgBean(false, false, "发表的数据试试看怎么样？", MsgBean.TYPE_SENT, R.drawable.xiaohei);
         data.add(msgBean3);
-        MsgBean msgBean4 = new MsgBean(true, false, "500元", MsgBean.TYPE_SENT, R.drawable.xiaohei);
+        MsgBean msgBean4 = new MsgBean(true, false, "500", MsgBean.TYPE_SENT, R.drawable.xiaohei);
         data.add(msgBean4);
         MsgBean msgBean5 = new MsgBean(false, false, "测试数据试试看怎么样？", MsgBean.TYPE_RECEIVED, R.drawable.renma);
         data.add(msgBean5);
@@ -310,12 +404,9 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
                     showShortToast("请选择要下注的金额");
                     return;
                 }
-                if (!content.contains("元")) {
-                    content += "元";
-                }
                 money = content.replace("元", "");//去掉单位
 //                bottomPour();
-                MsgBean msgBean = new MsgBean(true, false, content, MsgBean.TYPE_SENT, R.drawable.xiaohei);
+                MsgBean msgBean = new MsgBean(true, false, money, MsgBean.TYPE_SENT, R.drawable.xiaohei);
                 data.add(msgBean);
                 adapter.notifyItemInserted(data.size() - 1);//当有新消息，刷新recyclerview显示
                 rv_msg.scrollToPosition(data.size() - 1);//将recyclerview定位在最后一行
@@ -460,7 +551,7 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onFailure(String result, String requestCode) {
-
+        showShortToast(result);
     }
 
     /**
