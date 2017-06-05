@@ -49,6 +49,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import me.shaohui.bottomdialog.BaseBottomDialog;
@@ -82,8 +84,6 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
     LinearLayout ll_lead_up; //下注与抢庄
     @BindView(R.id.tv_send_msg)
     TextView tv_send_msg; //发送
-
-
     @BindView(R.id.ll_bottom_pour)
     LinearLayout ll_bottom_pour; //下注弹窗
     @BindView(R.id.tv_hundred_money)
@@ -127,7 +127,10 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
     private JPushToMyReceiver receiver; //接收JPush发送过来的广播
     Map<String, String> map = new HashMap<>(); //参数集合
     private HttpUtils httpUtils;
-
+    private Timer timer;  //计时器
+    private TimerTask task;
+    private long leadUpTime;//抢庄时间
+    private long bottomPourTime;//下注时间
 
     public MsgChatActivity() {
         super(R.layout.activity_msg_chat);
@@ -146,6 +149,7 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void initView() {
         setTitle("");//标题为空
+        setTimer();
         registerReceiver();//注册广播 接收极光推送的消息
         setLeftIcon(R.mipmap.ic_back, "", new View.OnClickListener() {
             @Override
@@ -172,7 +176,7 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 MsgBean msgBean = (MsgBean) adapter.getData().get(position);
-                showShortToast(msgBean.getContent()+"---"+position);
+                showShortToast(msgBean.getContent() + "---" + position);
                 if (rpDialog != null) {
                     rpDialog.show();
                 } else {
@@ -257,6 +261,7 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
         btnClose.setOnClickListener(rpClicked);
         btnOpen.setOnClickListener(rpClicked);
     }
+
     /**
      * 注册点击事件
      */
@@ -493,6 +498,11 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
             LocalBroadManager.getInstance().unregisterReceiver(receiver);
             receiver = null;
         }
+        if (timer != null) { //反注册定时器
+            timer.cancel();
+            task.cancel();
+            timer = null;
+        }
     }
 
     /**
@@ -567,28 +577,66 @@ public class MsgChatActivity extends BaseActivity implements View.OnClickListene
                 MsgChatBean bean = GsonUtil.GsonToBean(msg, MsgChatBean.class);
                 showShortToast("执行....." + bean.getStatus());
                 if (bean.getStatus().equals("created")) { //抢庄
-                    tv_select_time.setText(R.string.lead_up_time);//抢庄时间
-                    tv_lead_time.setText(DateUtil.getCutDown(bean.getBalance()));
-                    tv_lead_up.setVisibility(View.VISIBLE);
-                    tv_bottom_pour.setVisibility(View.GONE);
+                    leadUpTime = bean.getBalance();
                 } else if (bean.getStatus().equals("zhu")) { //下注
-                    tv_select_time.setText(R.string.bottom_pour_time);//下注时间
-                    tv_lead_time.setText(DateUtil.getCutDown(bean.getBalance()));
-                    tv_lead_up.setVisibility(View.GONE);
-                    tv_bottom_pour.setVisibility(View.VISIBLE);
+                    bottomPourTime = bean.getBalance();
                 } else if (bean.getStatus().equals("success")) { //结算成功
 
                 }
             } catch (JsonSyntaxException jse) {
                 showShortToast("数据格式错误");
             } catch (Exception e) {
-                System.out.print("你又调皮了");
+                System.out.print("数据异常");
             }
         }
     }
 
-    private void addMsg() {
-
+    /**
+     * 设置定时器
+     */
+    private void setTimer() {
+        if (timer == null) {
+            timer = new Timer();
+        }
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (bottomPourTime > 0) { //下注
+                            bottomPourTime--;
+                            tv_select_time.setVisibility(View.VISIBLE);
+                            tv_lead_time.setVisibility(View.VISIBLE);
+                            tv_select_time.setText(R.string.bottom_pour_time);//下注时间
+                            tv_lead_time.setText(DateUtil.getCutDown(bottomPourTime));
+                            tv_lead_up.setVisibility(View.GONE);
+                            tv_bottom_pour.setVisibility(View.VISIBLE);
+                            return;
+                        }
+                        if (leadUpTime > 0) { //抢庄
+                            leadUpTime--;
+                            tv_select_time.setVisibility(View.VISIBLE);
+                            tv_lead_time.setVisibility(View.VISIBLE);
+                            tv_select_time.setText(R.string.lead_up_time);//抢庄时间
+                            tv_lead_time.setText(DateUtil.getCutDown(leadUpTime));
+                            tv_lead_up.setVisibility(View.VISIBLE);
+                            tv_bottom_pour.setVisibility(View.GONE);
+                            return;
+                        }
+                        if (bottomPourTime == 0 || leadUpTime == 0) { //未开始或已结束阶段
+                            tv_select_time.setVisibility(View.GONE);
+                            tv_lead_time.setVisibility(View.GONE);
+                            tv_lead_up.setVisibility(View.GONE);
+                            tv_bottom_pour.setVisibility(View.GONE);
+                            return;
+                        }
+                    }
+                });
+            }
+        };
+        timer.schedule(task, 1000, 1000);
     }
+
 
 }
